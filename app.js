@@ -1,14 +1,13 @@
 const http = require('http');
+const express = require("express")
+const bodyParser = require("body-parser")
 
-const hostname = '127.0.0.1';
-const port = 3001;
+const app = express()
+const PORT = 3001;
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
-});
-
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.use(bodyParser.json())
+app.listen(PORT, () => console.log(`🚀Server running on port ${PORT}`))
+app.post("/hook", (req, res) => {
+    console.log(req.body) // ここでリクエストに対してアクションを呼び出します
+    res.status(200).end() // 応答は重要です
+})
